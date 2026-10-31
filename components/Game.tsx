@@ -16,7 +16,7 @@ import PuzzleKey from "./Keys";
 import Magnetic from "./Magnetic";
 import Marquee from "./Marquee";
 import QR from "./QR";
-import SiteNav from "./SiteNav";
+import SiteNav, { pill } from "./SiteNav";
 import { Tile, type TileState } from "./SplitFlap";
 import { TimerBar, TimerNumber } from "./Timer";
 import { Token } from "./Tokens";
@@ -39,7 +39,7 @@ declare global {
 }
 
 const btnPrimary =
-  "inline-flex min-h-[56px] items-center justify-center gap-3 rounded-full bg-lime-400 px-9 py-5 font-mono text-lg font-bold uppercase text-black transition-colors duration-200 hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-lime-400/40";
+  "group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-full bg-lime-400 px-9 py-5 font-mono text-lg font-bold uppercase text-black outline-none transition-colors duration-200 hover:bg-white focus-visible:bg-white";
 const btnGhost =
   "inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/15 px-6 py-3 font-mono text-sm font-bold uppercase tracking-[0.12em] text-zinc-300 transition-colors hover:border-white hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400";
 const micro = "font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-zinc-500";
@@ -383,46 +383,48 @@ export default function Game({ initial }: { initial: "title" | "play" }) {
 // Title
 // =====================================================================
 function TitleScreen({ best, onPlay }: { best: number; onPlay: () => void }) {
+  // Same cover-sheet layout as SOCIALTRACE's hero: centred title, crop marks, file microtype, scan line.
+  const mark = "absolute h-6 w-6 border-zinc-600";
   return (
-    <main className="bg-grain relative flex min-h-[100svh] flex-col overflow-hidden">
-      <div aria-hidden className="grid-lines pointer-events-none absolute inset-0" />
-      <SiteNav />
-      <section className="relative mx-auto grid w-full max-w-[1400px] flex-1 items-center gap-8 px-4 pb-8 pt-24 sm:px-8 sm:pt-28 lg:grid-cols-[1.25fr_1fr] lg:gap-12 lg:px-12">
-        <div className="rise min-w-0">
-          <p className={micro}>Cipher club · stall game · 60 seconds</p>
-          <h1 className="mt-4 select-none font-black uppercase leading-[0.82] tracking-tighter">
-            <span className="block text-[17vw] sm:text-[13vw] lg:text-[10.5vw] 2xl:text-[150px]">Cipher</span>
-            <span className="block text-[17vw] text-lime-400 sm:text-[13vw] lg:text-[10.5vw] 2xl:text-[150px]">Sprint</span>
+    <main className="relative min-h-[100svh] overflow-hidden bg-[#0a0a08] text-white selection:bg-lime-400 selection:text-black">
+      <SiteNav right={best > 0 ? <span className={pill}>Best <b className="text-lime-400">{best}</b></span> : null} />
+      <section className="relative flex min-h-[calc(100svh-5rem)] w-full flex-col items-center justify-center px-4 pb-6 pt-28 sm:min-h-[calc(100svh-7rem)] sm:pt-32">
+        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
+        <div aria-hidden className="scan pointer-events-none absolute inset-x-0 top-0 h-px bg-lime-400/70 shadow-[0_0_24px_4px_rgba(163,230,53,.35)]" />
+        <span aria-hidden className={`${mark} left-4 top-20 border-l border-t sm:left-8 sm:top-24`} />
+        <span aria-hidden className={`${mark} right-4 top-20 border-r border-t sm:right-8 sm:top-24`} />
+        <span aria-hidden className={`${mark} bottom-2 left-4 border-b border-l sm:left-8`} />
+        <span aria-hidden className={`${mark} bottom-2 right-4 border-b border-r sm:right-8`} />
+        <p className="absolute left-6 top-[6.5rem] font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:left-12 sm:top-[7.5rem] sm:text-xs">Cipher club · stall game</p>
+        <p className="absolute right-6 top-[6.5rem] flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:right-12 sm:top-[7.5rem] sm:text-xs">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime-400" />60 sec</p>
+
+        <div className="rise relative z-10 text-center">
+          <h1 className="select-none text-[17vw] font-black uppercase leading-[0.82] tracking-tighter sm:text-[13vw] lg:text-[10vw] 2xl:text-[150px]">
+            Cipher<br /><span className="bg-gradient-to-b from-white to-zinc-600 bg-clip-text text-transparent">Sprint</span>
           </h1>
-          <p className="mt-6 max-w-md text-lg leading-snug text-zinc-300 sm:text-xl">
-            Decode as many secret words as you can in <span className="font-bold text-white">60 seconds</span>.
-            Every puzzle comes with its key.
+          <p className="mx-auto mt-7 max-w-2xl font-mono text-sm uppercase tracking-widest text-zinc-400 sm:text-base">
+            Read the code. Use the key.{" "}
+            <span className="relative inline-block"><span className="text-white">Crack</span>
+              <span aria-hidden className="draw-line absolute inset-x-0 -bottom-1 h-[3px] bg-lime-400" /></span> the word.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <div className="mt-10 flex flex-col items-center gap-4">
             <Magnetic>
-              <button type="button" onClick={onPlay} className={btnPrimary} data-testid="play" autoFocus>
+              <button type="button" onClick={onPlay} className={btnPrimary} data-testid="play">
                 Play
-                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path d="M7 4l13 8-13 8z" fill="currentColor" /></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="transition-transform group-hover:translate-x-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </button>
             </Magnetic>
-            <span className={`${micro} hidden sm:inline`}>or press <kbd className="rounded border border-white/15 px-1.5 py-0.5 text-zinc-300">Enter</kbd></span>
-            {best > 0 && <span className={micro}>Best this session · <b className="text-lime-400">{best}</b></span>}
+            <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+              <span className="hidden sm:inline">[ or press enter ]</span><span className="sm:hidden">[ 60 seconds · no sign-up ]</span>
+            </span>
           </div>
         </div>
-        <div className="rise flex min-w-0 flex-col gap-5 [animation-delay:120ms]">
-          <AttractDemo />
-          <ul className="grid grid-cols-3 gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">
-            {["Read the code", "Use the key", "Type the word"].map((s, i) => (
-              <li key={s} className="rounded-2xl border border-white/10 px-3 py-3">
-                <span className="block font-anton text-2xl text-lime-400">{i + 1}</span>{s}
-              </li>
-            ))}
-          </ul>
-        </div>
+
+        <div className="rise relative z-10 mt-10 w-full max-w-md sm:max-w-xl [animation-delay:150ms]"><AttractDemo /></div>
+
+        <div className="absolute bottom-6 right-8 z-10 hidden xl:block"><QR size={112} /></div>
       </section>
-      <div className="pointer-events-none relative z-10 hidden justify-end px-12 pb-5 md:flex">
-        <div className="pointer-events-auto"><QR size={132} /></div>
-      </div>
       <Marquee />
     </main>
   );

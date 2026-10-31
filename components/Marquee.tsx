@@ -1,20 +1,18 @@
-const ITEMS = ["Caesar", "Morse", "Binary", "Numbers"];
-
+// Two crossing "case tapes", same as SOCIALTRACE's landing.
 export default function Marquee() {
-  const run = Array.from({ length: 4 }, () => ITEMS).flat();
+  const a = Array(10).fill("Caesar ● Morse ● Binary ● Numbers ●");
+  const b = Array(10).fill("Every puzzle comes with its key ▲ 60 seconds on the clock ▲");
   return (
-    <div className="relative overflow-hidden border-y border-black bg-lime-400 py-3 text-black" aria-hidden>
-      <div className="marquee-track flex w-max">
-        {[0, 1].map((half) => (
-          <div key={half} className="flex shrink-0">
-            {run.map((t, i) => (
-              <span key={i} className="flex items-center font-black uppercase tracking-tight">
-                <span className="px-5 text-2xl sm:text-3xl">{t}</span>
-                <span className="text-lg">●</span>
-              </span>
-            ))}
-          </div>
-        ))}
+    <div aria-hidden className="pointer-events-none relative z-10 h-32 overflow-hidden sm:h-40">
+      <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 -rotate-[6deg] bg-lime-400 py-3 shadow-[0_8px_30px_rgba(0,0,0,.6)] sm:-rotate-[3deg]">
+        <div className="marquee-track flex w-max gap-10 whitespace-nowrap font-mono text-2xl font-black uppercase tracking-tight text-black sm:text-4xl">
+          {a.map((t, i) => <span key={i}>{t}</span>)}
+        </div>
+      </div>
+      <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 rotate-[4deg] bg-[#ECEAE2] py-2 sm:rotate-[2deg]">
+        <div className="marquee-rev flex w-max gap-10 whitespace-nowrap font-mono text-sm font-bold uppercase tracking-[0.2em] text-zinc-900 sm:text-base">
+          {b.map((t, i) => <span key={i}>{t}</span>)}
+        </div>
       </div>
     </div>
   );
