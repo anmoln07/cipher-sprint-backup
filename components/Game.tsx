@@ -415,9 +415,7 @@ function TitleScreen({ best, onPlay }: { best: number; onPlay: () => void }) {
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="transition-transform group-hover:translate-x-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </button>
             </Magnetic>
-            <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
-              <span className="hidden sm:inline">[ or press enter ]</span><span className="sm:hidden">[ 60 seconds · no sign-up ]</span>
-            </span>
+            <span className="hidden font-mono text-xs uppercase tracking-widest text-zinc-500 sm:inline">[ or press enter ]</span>
           </div>
         </div>
 
