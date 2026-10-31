@@ -388,25 +388,27 @@ function TitleScreen({ best, onPlay }: { best: number; onPlay: () => void }) {
   return (
     <main className="relative min-h-[100svh] overflow-hidden bg-[#0a0a08] text-white selection:bg-lime-400 selection:text-black">
       <SiteNav right={best > 0 ? <span className={pill}>Best <b className="text-lime-400">{best}</b></span> : null} />
-      <section className="relative flex min-h-[calc(100svh-5rem)] w-full flex-col items-center justify-center px-4 pb-6 pt-28 sm:min-h-[calc(100svh-7rem)] sm:pt-32">
+      <section className="relative flex min-h-[calc(100svh-5rem)] w-full flex-col items-center justify-center px-4 pb-6 pt-24 sm:min-h-[calc(100svh-7rem)] sm:pt-32">
         <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
         <div aria-hidden className="scan pointer-events-none absolute inset-x-0 top-0 h-px bg-lime-400/70 shadow-[0_0_24px_4px_rgba(163,230,53,.35)]" />
         <span aria-hidden className={`${mark} left-4 top-20 border-l border-t sm:left-8 sm:top-24`} />
         <span aria-hidden className={`${mark} right-4 top-20 border-r border-t sm:right-8 sm:top-24`} />
         <span aria-hidden className={`${mark} bottom-2 left-4 border-b border-l sm:left-8`} />
         <span aria-hidden className={`${mark} bottom-2 right-4 border-b border-r sm:right-8`} />
-        <p className="absolute left-6 top-[6.5rem] font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:left-12 sm:top-[7.5rem] sm:text-xs">Cipher club · stall game</p>
-        <p className="absolute right-6 top-[6.5rem] flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:right-12 sm:top-[7.5rem] sm:text-xs">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime-400" />60 sec</p>
+        {/* file microtype: in the flow on phones (so big system text can't collide with the title), pinned on larger screens */}
+        <div className="relative z-10 mb-8 flex w-full items-center justify-between gap-3 px-2 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 sm:absolute sm:inset-x-12 sm:top-[7.5rem] sm:mb-0 sm:w-auto sm:px-0 sm:text-xs sm:tracking-[0.25em]">
+          <span>Cipher club<span className="hidden sm:inline"> · stall game</span></span>
+          <span className="flex shrink-0 items-center gap-2"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime-400" />60 sec</span>
+        </div>
 
         <div className="rise relative z-10 text-center">
           <h1 className="select-none text-[17vw] font-black uppercase leading-[0.82] tracking-tighter sm:text-[13vw] lg:text-[10vw] 2xl:text-[150px]">
             Cipher<br /><span className="bg-gradient-to-b from-white to-zinc-600 bg-clip-text text-transparent">Sprint</span>
           </h1>
-          <p className="mx-auto mt-7 max-w-2xl font-mono text-sm uppercase tracking-widest text-zinc-400 sm:text-base">
-            Read the code. Use the key.{" "}
-            <span className="relative inline-block"><span className="text-white">Crack</span>
-              <span aria-hidden className="draw-line absolute inset-x-0 -bottom-1 h-[3px] bg-lime-400" /></span> the word.
+          <p className="mx-auto mt-7 max-w-2xl font-mono text-[13px] uppercase leading-relaxed tracking-[0.18em] text-zinc-400 sm:text-base sm:tracking-widest">
+            <span className="block sm:inline">Read the code.</span>{" "}<span className="block sm:inline">Use the key.</span>{" "}
+            <span className="block sm:inline"><span className="relative inline-block"><span className="text-white">Crack</span>
+              <span aria-hidden className="draw-line absolute inset-x-0 -bottom-1 h-[3px] bg-lime-400" /></span> the word.</span>
           </p>
           <div className="mt-10 flex flex-col items-center gap-4">
             <Magnetic>

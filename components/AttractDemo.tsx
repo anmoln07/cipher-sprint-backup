@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { encodeKind, KIND_LABEL, type CipherKind } from "@/lib/ciphers";
 import { Tile, scrambleChar, type TileState } from "./SplitFlap";
 import { Token } from "./Tokens";
+import MorseGlyph from "./MorseGlyph";
 
 const DEMOS: { kind: CipherKind; word: string; shift?: number }[] = [
   { kind: "morse", word: "CODE" },
@@ -45,7 +46,7 @@ export default function AttractDemo() {
         <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-lime-400" />Live demo</span>
         <span key={i} className="slide-in text-lime-400">{KIND_LABEL[demo.kind]}</span>
       </div>
-      <div key={`b${i}`} className="slide-in mt-6 flex justify-center gap-3 sm:gap-5">
+      <div key={`b${i}`} className="slide-in mt-6 flex justify-center gap-2.5 sm:gap-5">
         {enc.display.map((tok, k) => {
           let state: TileState = "empty";
           let letter: string | null = null;
@@ -53,7 +54,11 @@ export default function AttractDemo() {
           else if (scrambling && !calm) { state = "scramble"; letter = scrambleChar(t / 70 + k * 7); }
           return (
             <div key={k} className="flex flex-col items-center gap-4">
-              <div className="flex h-12 items-center sm:h-16"><Token kind={demo.kind} value={tok} /></div>
+              <div className="flex h-12 items-center sm:h-16">
+                {demo.kind === "morse"
+                  ? <><MorseGlyph code={tok} size="sm" className="min-[400px]:hidden" /><MorseGlyph code={tok} size="md" className="hidden min-[400px]:inline-flex sm:hidden" /><MorseGlyph code={tok} size="lg" className="hidden sm:inline-flex" /></>
+                  : <Token kind={demo.kind} value={tok} />}
+              </div>
               <Tile letter={letter} state={state} index={0} size="md" />
             </div>
           );
