@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { binary, caesar, decodeWithKey, morse, numbers } from "@/lib/ciphers";
+import { caesar, decodeWithKey, keypad, morse, numbers } from "@/lib/ciphers";
 import { normalise, matches } from "@/lib/normalise";
 import { mulberry32, parseSeed } from "@/lib/rng";
 
@@ -14,15 +14,11 @@ describe("hand-checked encodings", () => {
     expect(numbers.encode("HACK").display.join(" ")).toBe("8 1 3 11");
     expect(numbers.encode("ZERO").display.join(" ")).toBe("26 5 18 15");
   });
-  it("Binary", () => {
-    expect(binary.encode("HACK").display.join(" ")).toBe("01000 00001 00011 01011");
-    expect(binary.encode("ZIP").display.join(" ")).toBe("11010 01001 10000");
-    const k = binary.encode("HACK").keyData;
-    expect(k.placeValues).toEqual([16, 8, 4, 2, 1]);
-    expect(k.table.map((r) => r.letter)).toEqual(["A", "C", "H", "K"]);
-  });
-  it("Binary table de-duplicates repeated letters", () => {
-    expect(binary.encode("EGG").keyData.table.map((r) => r.letter)).toEqual(["E", "G"]);
+  it("Phone keypad", () => {
+    expect(keypad.encode("HACK").display.join(" ")).toBe("44 2 222 55");
+    expect(keypad.encode("SWIZ").display.join(" ")).toBe("7777 9 444 9999");
+    expect(keypad.encode("PING").display.join(" ")).toBe("7 444 66 4");
+    expect(keypad.encode("HACK").keyData.keys.map((k) => k.digit).join("")).toBe("23456789");
   });
   it("Caesar", () => {
     expect(caesar.encode("HACK", { shift: 3 }).display.join("")).toBe("KDFN");
@@ -38,7 +34,7 @@ describe("hand-checked encodings", () => {
     expect(k.bottom[25]).toBe("B");
   });
   it("decodeWithKey round-trips", () => {
-    for (const enc of [morse.encode("WIFI"), numbers.encode("CHAI"), binary.encode("BYTE"), caesar.encode("PIZZA", { shift: 2 })]) {
+    for (const enc of [morse.encode("WIFI"), numbers.encode("CHAI"), keypad.encode("BYTE"), caesar.encode("PIZZA", { shift: 2 })]) {
       expect(decodeWithKey(enc.display, enc.keyData)).toBe(enc.answer);
     }
   });

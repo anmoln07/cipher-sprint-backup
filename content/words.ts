@@ -1,6 +1,6 @@
 // Word lists for Cipher Sprint. All uppercase A–Z, friendly and easy to spell.
 // Rules (enforced by tests/content.test.ts):
-//  - WORDS_4: exactly 4 letters. WORDS_5: exactly 5 letters (Caesar only). BINARY_WORDS: 3–4 letters.
+//  - WORDS_4: exactly 4 letters. WORDS_5: exactly 5 letters (Caesar only).
 //  - No duplicates inside a list.
 //  - No word that is one typo away from something rude (so a stall screen never shows one).
 //    That filter is why some obvious club words (NODE, DISK, LOOP, BOOT, BIT) are not here.
@@ -39,14 +39,6 @@ export const WORDS_5: readonly string[] = [
   "FLAME", "GRAPE", "HAPPY", "LEMON", "MAGIC", "MUSIC", "OCEAN", "PANDA", "PIANO", "QUEST",
   "RADIO", "ROBOT", "SMILE", "SPOON", "TIGER", "TOAST", "TRAIN", "WATER", "ZEBRA", "LASER",
   "PIXEL", "MOUSE", "CANDY", "OTTER", "PLANT", "FLUTE",
-];
-
-/** Binary only: 3–4 letters (each letter is a 5-bit group, so short is kinder). */
-export const BINARY_WORDS: readonly string[] = [
-  "CAT", "DOG", "SUN", "BUG", "KEY", "BOX", "HAT", "MAP", "OWL", "PEN", "ZIP", "WEB", "APP", "JAM",
-  "EGG", "ICE", "ANT", "BEE", "FOX", "JAR", "LOG", "NET", "RAM", "ROM", "CPU", "TEA", "SKY",
-  "BYTE", "CODE", "DATA", "HACK", "PING", "CHIP", "GAME", "CAKE", "MOON", "STAR", "FISH", "TREE",
-  "RAIN", "WIFI",
 ];
 
 /** Chance a Caesar puzzle uses a 5-letter word. */

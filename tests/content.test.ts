@@ -1,22 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { BINARY_WORDS, WORDS_4, WORDS_5 } from "@/content/words";
+import { WORDS_4, WORDS_5 } from "@/content/words";
 import { RANKS, rankFor } from "@/content/ranks";
 import { LESSONS } from "@/content/lessons";
 import { caesar } from "@/lib/ciphers";
 import { isBlocked, isRisky } from "./blocklist";
 
-const lists = { WORDS_4, WORDS_5, BINARY_WORDS } as const;
+const lists = { WORDS_4, WORDS_5 } as const;
 
 describe("word lists", () => {
   it("are big enough", () => {
     expect(WORDS_4.length).toBeGreaterThanOrEqual(150);
     expect(WORDS_5.length).toBeGreaterThanOrEqual(30);
-    expect(BINARY_WORDS.length).toBeGreaterThanOrEqual(30);
   });
   it("have the right lengths and only A–Z", () => {
     for (const w of WORDS_4) expect(w).toMatch(/^[A-Z]{4}$/);
     for (const w of WORDS_5) expect(w).toMatch(/^[A-Z]{5}$/);
-    for (const w of BINARY_WORDS) expect(w).toMatch(/^[A-Z]{3,4}$/);
   });
   it("have no duplicates", () => {
     for (const [name, list] of Object.entries(lists)) expect(new Set(list).size, name).toBe(list.length);

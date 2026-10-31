@@ -3,7 +3,7 @@
 None of these block shipping; each has a default already in the code.
 
 1. **Event date?** No deadline was given, so nothing is scheduled around one.
-2. **Club in-jokes for the word list?** Add them to `content/words.ts` (4 letters, or 3–4 for binary) and
+2. **Club in-jokes for the word list?** Add them to `content/words.ts` (4 letters) and
    run `npm test` to make sure they pass the rude-word checks.
 3. **Missing club words.** NODE, DISK, LOOP, BOOT and BIT were left out because they are one typo away from
    a rude word (the plan asked for that rule). NODE was in the plan's example list. Say if you want any back.

@@ -1,19 +1,19 @@
 import * as caesar from "./caesar";
 import * as morse from "./morse";
 import * as numbers from "./numbers";
-import * as binary from "./binary";
+import * as keypad from "./keypad";
 import type { CipherKind, Encoded, KeyData } from "./types";
 
 export * from "./types";
-export { caesar, morse, numbers, binary };
+export { caesar, morse, numbers, keypad };
 
-export const KINDS: readonly CipherKind[] = ["caesar", "morse", "numbers", "binary"];
+export const KINDS: readonly CipherKind[] = ["caesar", "morse", "numbers", "keypad"];
 
 export const KIND_LABEL: Record<CipherKind, string> = {
   caesar: "Caesar shift",
   morse: "Morse code",
   numbers: "Numbers",
-  binary: "Binary",
+  keypad: "Phone keypad",
 };
 
 /** Decode a puzzle using only what is shown on screen (display + key). Used by tests. */
@@ -22,7 +22,7 @@ export function decodeWithKey(display: string[], keyData: KeyData): string {
     case "caesar": return caesar.decode(display, keyData);
     case "morse": return morse.decode(display, keyData);
     case "numbers": return numbers.decode(display, keyData);
-    case "binary": return binary.decode(display, keyData);
+    case "keypad": return keypad.decode(display, keyData);
   }
 }
 
@@ -31,6 +31,6 @@ export function encodeKind(kind: CipherKind, word: string, opts: { shift?: numbe
     case "caesar": return caesar.encode(word, { shift: opts.shift ?? 3 });
     case "morse": return morse.encode(word);
     case "numbers": return numbers.encode(word);
-    case "binary": return binary.encode(word);
+    case "keypad": return keypad.encode(word);
   }
 }

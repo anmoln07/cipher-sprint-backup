@@ -1,6 +1,6 @@
 // Two crossing "case tapes", same as SOCIALTRACE's landing.
 export default function Marquee() {
-  const a = Array(10).fill("Caesar ● Morse ● Binary ● Numbers ●");
+  const a = Array(10).fill("Caesar ● Morse ● Keypad ● Numbers ●");
   const b = Array(10).fill("Every puzzle comes with its key ▲ 60 seconds on the clock ▲");
   return (
     <div aria-hidden className="pointer-events-none relative z-10 h-32 overflow-hidden sm:h-40">

@@ -1,7 +1,7 @@
 # Cipher Sprint
 
 **Decode as many secret words as you can in 60 seconds.** A stall game for the Cipher club:
-Caesar shift, Morse code, Numbers (A = 1) and Binary (5-bit) puzzles, each with its own on-screen key.
+Caesar shift, Morse code, Numbers (A = 1) and Phone keypad (44 = H) puzzles, each with its own on-screen key.
 
 Next.js 14 (App Router) + TypeScript + Tailwind 3.4. Everything runs in the browser: no backend, no API
 routes, no accounts, no analytics, no runtime network requests. The only stored data is in `localStorage`
@@ -63,9 +63,8 @@ All words live in `content/words.ts`:
 
 | List           | Used by                      | Rule                |
 |----------------|------------------------------|---------------------|
-| `CLUB` / `EVERYDAY` (→ `WORDS_4`) | Caesar, Morse, Numbers | exactly 4 letters |
+| `CLUB` / `EVERYDAY` (→ `WORDS_4`) | Caesar, Morse, Numbers, Keypad | exactly 4 letters |
 | `WORDS_5`      | Caesar only (25% of Caesar puzzles, `CAESAR_FIVE_CHANCE`) | exactly 5 letters |
-| `BINARY_WORDS` | Binary only                  | 3–4 letters         |
 
 Uppercase A–Z only. Then run `npm test`: `tests/content.test.ts` fails if a word has the wrong length,
 is duplicated, is one typo away from a rude word, or turns into a rude word under a Caesar shift of 1–3
@@ -85,7 +84,7 @@ is duplicated, is one typo away from a rude word, or turns into a rude word unde
 ```
 app/page.tsx, app/play/page.tsx   title (attract mode) and the run; both render components/Game.tsx
 components/Game.tsx               phases: title → intro (first play) → 3-2-1 → playing → results
-components/Keys/*                 Caesar / Morse / Numbers / Binary keys
+components/Keys/*                 Caesar / Morse / Numbers / Keypad keys
 lib/ciphers/*                     pure encode/decode per cipher + registry
 lib/generate.ts                   seeded puzzle generator (never 3 of a kind in a row, no repeats)
 lib/rng.ts, lib/normalise.ts      mulberry32, seed parsing, forgiving answer matching

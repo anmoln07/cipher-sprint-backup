@@ -16,7 +16,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DOCS = path.join(ROOT, "docs");
 const PORT = Number(process.env.PORT ?? 3123);
 const BASE = `http://127.0.0.1:${PORT}`;
-const KINDS = ["caesar", "morse", "numbers", "binary"];
+const KINDS = ["caesar", "morse", "numbers", "keypad"];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 mkdirSync(DOCS, { recursive: true });
 

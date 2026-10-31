@@ -10,7 +10,7 @@ function keyCoversDisplay(p: Encoded): boolean {
     case "caesar": return p.display.every((c) => k.bottom.includes(c));
     case "morse": return p.display.every((c) => k.chart.some((e) => e.code === c));
     case "numbers": return p.display.every((n) => k.strip.some((e) => String(e.value) === n));
-    case "binary": return p.display.every((b) => k.table.some((e) => e.bits === b));
+    case "keypad": return p.display.every((t) => k.keys.some((e) => e.digit === t[0] && t.length <= e.letters.length && /^(\d)\1*$/.test(t)));
   }
 }
 
@@ -34,8 +34,7 @@ describe("generated runs (1,000 seeds)", () => {
         const n = kinds.length;
         if (n >= 3) expect(kinds[n - 1] === kinds[n - 2] && kinds[n - 2] === kinds[n - 3], `seed ${seed} 3x ${p.kind}`).toBe(false);
         // Word-length rules per kind.
-        if (p.kind === "binary") expect([3, 4]).toContain(p.answer.length);
-        else if (p.kind === "caesar") expect([4, 5]).toContain(p.answer.length);
+        if (p.kind === "caesar") expect([4, 5]).toContain(p.answer.length);
         else expect(p.answer.length).toBe(4);
         if (p.kind === "caesar" && p.keyData.kind === "caesar") expect([1, 2, 3]).toContain(p.keyData.shift);
       }
@@ -67,7 +66,7 @@ describe("generated runs (1,000 seeds)", () => {
   });
 
   it("never crashes when pools run dry", () => {
-    const gen = new PuzzleGenerator({ seed: 5, pools: { four: ["CODE", "HACK"], five: ["PIZZA"], binary: ["CAT"] } });
+    const gen = new PuzzleGenerator({ seed: 5, pools: { four: ["CODE", "HACK"], five: ["PIZZA"] } });
     for (let i = 0; i < 50; i++) {
       const p = gen.next();
       expect(decodeWithKey(p.display, p.keyData)).toBe(p.answer);

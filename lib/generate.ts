@@ -1,6 +1,6 @@
 import { encodeKind, KINDS, type CipherKind, type Encoded } from "./ciphers";
 import { mulberry32, pick, randInt, type Rng } from "./rng";
-import { BINARY_WORDS, CAESAR_FIVE_CHANCE, WORDS_4, WORDS_5 } from "@/content/words";
+import { CAESAR_FIVE_CHANCE, WORDS_4, WORDS_5 } from "@/content/words";
 
 export interface Puzzle extends Encoded {
   id: number;
@@ -18,10 +18,9 @@ export interface GeneratorOptions {
 export interface WordPools {
   four: readonly string[];
   five: readonly string[];
-  binary: readonly string[];
 }
 
-const DEFAULT_POOLS: WordPools = { four: WORDS_4, five: WORDS_5, binary: BINARY_WORDS };
+const DEFAULT_POOLS: WordPools = { four: WORDS_4, five: WORDS_5 };
 
 /** Pick a kind at random, but never the same kind three times in a row. */
 export function pickKind(rng: Rng, history: readonly CipherKind[]): CipherKind {
@@ -64,7 +63,6 @@ export class PuzzleGenerator {
   }
 
   private wordFor(kind: CipherKind): string | null {
-    if (kind === "binary") return this.chooseWord(this.pools.binary);
     if (kind === "caesar" && this.rng() < CAESAR_FIVE_CHANCE) {
       const w = this.chooseWord(this.pools.five);
       if (w) return w;

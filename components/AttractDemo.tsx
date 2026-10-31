@@ -8,7 +8,7 @@ import MorseGlyph from "./MorseGlyph";
 const DEMOS: { kind: CipherKind; word: string; shift?: number }[] = [
   { kind: "morse", word: "CODE" },
   { kind: "caesar", word: "HACK", shift: 3 },
-  { kind: "binary", word: "BYTE" },
+  { kind: "keypad", word: "PING" },
   { kind: "numbers", word: "CHAI" },
 ];
 
