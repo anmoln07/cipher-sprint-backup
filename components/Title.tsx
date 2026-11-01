@@ -78,15 +78,26 @@ export default function TitleScreen({ best, onPlay }: { best: number; onPlay: ()
 
   return (
     <main className="min-h-[100svh]" data-testid="title">
-      <header className="flex items-center justify-center gap-2.5 py-6">
-        <Dot size={30} />
-        <span className="serif text-[26px] text-ink">Cipher Sprint</span>
-      </header>
 
       {/* ---------- hero ---------- */}
-      <section className="hero-wash relative mx-2.5 overflow-hidden rounded-[28px] sm:mx-4 sm:rounded-[40px]">
-        <div className="absolute right-6 top-6 z-10 hidden 2xl:block"><QR size={96} /></div>
-        <div className="rise relative z-[3] px-5 pt-11 text-center sm:pt-16">
+      <section className="hero-wash relative mx-2.5 mt-2.5 overflow-hidden rounded-[28px] sm:mx-4 sm:mt-4 sm:rounded-[40px]">
+        {/* top bar lives inside the hero panel */}
+        <nav className="relative z-10 flex items-center justify-between gap-3 px-4 pt-4 sm:px-7 sm:pt-6">
+          <a href="/" className="flex items-center gap-2.5 rounded-full py-1 pr-2" aria-label="Cipher Sprint home">
+            <Dot size={34} />
+            <span className="serif text-[24px] leading-none text-ink sm:text-[26px]">Cipher Sprint</span>
+          </a>
+          <div className="flex items-center gap-2">
+            <a href="#how" className="hidden h-10 items-center rounded-full px-4 text-sm font-semibold text-ink-soft transition-colors hover:bg-card/70 hover:text-ink sm:inline-flex">How it plays</a>
+            <span className="inline-flex h-10 items-center gap-2 rounded-full bg-card/80 px-4 text-sm font-semibold text-ink shadow-[0_0_0_1px_rgba(70,61,53,.08)]">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-lime-500" />60 seconds
+            </span>
+          </div>
+        </nav>
+        {/* big scan-to-play card for the stall laptop */}
+        <div className="absolute right-6 top-[100px] z-10 hidden xl:block 2xl:hidden"><QR size={150} big /></div>
+        <div className="absolute right-7 top-[104px] z-10 hidden 2xl:block"><QR size={196} big /></div>
+        <div className="rise relative z-[3] px-5 pt-9 text-center sm:pt-12">
           <h1 className="serif mx-auto max-w-[15ch] text-[clamp(40px,6.2vw,84px)] leading-[1.02]">Crack as many codes as you can in a minute.</h1>
           <p className="mx-auto mt-5 max-w-[46ch] text-[15px] leading-relaxed text-ink-soft sm:mt-6 sm:text-base">
             Every puzzle comes with its key. Type the real word and the next one appears. Stuck? Skip it for three seconds.
@@ -139,7 +150,7 @@ export default function TitleScreen({ best, onPlay }: { best: number; onPlay: ()
       </div>
 
       {/* ---------- how it plays ---------- */}
-      <section className="px-4 pb-10 pt-[72px] text-center sm:pt-24">
+      <section id="how" className="scroll-mt-6 px-4 pb-10 pt-[72px] text-center sm:pt-24">
         <span className="tag">How it plays</span>
         <h2 className="serif mx-auto mt-[18px] max-w-[16ch] text-[clamp(34px,4.6vw,60px)] leading-[1.04]">Three moves, one minute on the clock</h2>
         <div className="mx-auto mt-14 grid max-w-[1140px] items-start gap-4 md:grid-cols-3 md:gap-[22px]">
@@ -156,7 +167,7 @@ export default function TitleScreen({ best, onPlay }: { best: number; onPlay: ()
       <section className="end-wash mx-2.5 mt-16 rounded-[28px] px-5 py-16 text-center sm:mx-4 sm:mt-20 sm:rounded-[40px] sm:py-20">
         <h2 className="serif mx-auto max-w-[18ch] text-[clamp(32px,4.4vw,56px)] leading-[1.05]">Your minute starts when you press Play.</h2>
         <div className="mt-10 flex justify-center"><PlayButton onPress={onPlay} testId="play-bottom" /></div>
-        <div className="mt-12 hidden justify-center lg:flex"><QR size={96} /></div>
+        <div className="mt-12 hidden justify-center lg:flex"><QR size={180} big /></div>
       </section>
       <footer className="py-8 text-center text-[13px] text-ink-soft">Made by Cipher club, Bennett University · Illustrations from Kitbitz (CC0)</footer>
     </main>

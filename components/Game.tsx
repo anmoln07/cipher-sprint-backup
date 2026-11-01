@@ -523,11 +523,13 @@ function ResultsScreen({ result, idleLeft, onAgain, onHome }: { result: Result; 
   const idleSecs = Math.max(0, Math.ceil(idleLeft / 1000));
   return (
     <main className="min-h-[100svh] pb-6" data-testid="results">
-      <button type="button" onClick={onHome} className="mx-auto flex items-center justify-center gap-2.5 py-6" aria-label="Back to title">
-        <Dot size={28} />
-        <span className="serif text-[22px]">Cipher Sprint</span>
-      </button>
-      <section className="result-wash mx-2.5 rounded-[28px] px-3.5 pb-11 pt-10 text-center sm:mx-4 sm:rounded-[40px] sm:px-5 sm:pb-16 sm:pt-14">
+      <section className="result-wash mx-2.5 mt-2.5 rounded-[28px] px-3.5 pb-11 pt-4 text-center sm:mx-4 sm:mt-4 sm:rounded-[40px] sm:px-5 sm:pb-16 sm:pt-6">
+        <nav className="-mx-0.5 mb-6 flex items-center justify-between sm:mx-2 sm:mb-8">
+          <button type="button" onClick={onHome} className="flex items-center gap-2.5 py-1 pr-2" aria-label="Back to title">
+            <Dot size={34} />
+            <span className="serif text-[24px] leading-none sm:text-[26px]">Cipher Sprint</span>
+          </button>
+        </nav>
         <h1 className="serif rise text-[clamp(28px,3.4vw,40px)] text-ink-soft">Time&apos;s up. You cracked</h1>
         <div className="rise mt-1.5 flex items-center justify-center gap-3 sm:gap-7 [animation-delay:80ms]">
           <span className="serif text-[clamp(150px,18vw,230px)] font-[350] leading-[.9]" data-testid="final-score"><Counter value={result.score} duration={1100} /></span>
