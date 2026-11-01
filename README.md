@@ -91,3 +91,9 @@ lib/rng.ts, lib/normalise.ts      mulberry32, seed parsing, forgiving answer mat
 content/                          words, ranks, lessons
 tests/, e2e/run.mjs, docs/*.png   unit/property tests, full-run browser test, screenshots
 ```
+
+## Look (v3, backup repo)
+Light redesign inspired by decimals.co: cream paper, soft Fraunces serif headlines, Instrument Sans body, JetBrains Mono for code, lime accent.
+Title has a turning globe made of Morse dots and dashes, cipher pills, a live demo card and a WebGL "Play" button
+(dithered lime shader, label that decodes itself, Morse ring, burst on press; falls back to CSS without WebGL, still under reduced motion).
+Illustrations in `public/art/` are from [Kitbitz](https://kitbitz.art) (CC0).

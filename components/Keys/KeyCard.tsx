@@ -1,12 +1,16 @@
 import type { ReactNode } from "react";
 
-/** "Paper" evidence card that holds every key. */
-export default function KeyCard({ title, aside, children }: { title: string; aside?: ReactNode; children: ReactNode }) {
+/** The card that holds every key: serif title, a one-line how-to, and the key itself. */
+export default function KeyCard({ title, aside, art, children }: { title: string; aside?: ReactNode; art?: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl bg-[#ECEAE2] p-3 text-zinc-900 shadow-[0_20px_60px_-30px_rgba(163,230,53,.35)] sm:rounded-3xl sm:p-5" aria-label={title}>
-      <header className="mb-2 flex items-center justify-between gap-3 sm:mb-3">
-        <h2 className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-500 sm:text-xs">{title}</h2>
-        {aside && <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">{aside}</div>}
+    <section className="card p-3.5 sm:p-5" aria-label={title}>
+      <header className="mb-3 flex items-center gap-3 sm:mb-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {art && <img src={`/art/${art}.svg`} alt="" className="hidden h-12 w-12 object-contain sm:block" />}
+        <div className="min-w-0">
+          <h2 className="serif text-xl leading-tight sm:text-[22px]">{title}</h2>
+          {aside && <p className="mt-0.5 text-[13px] text-ink-soft sm:text-sm">{aside}</p>}
+        </div>
       </header>
       {children}
     </section>

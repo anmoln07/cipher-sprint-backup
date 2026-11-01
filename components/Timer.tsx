@@ -1,10 +1,11 @@
 export function TimerNumber({ remainingMs }: { remainingMs: number }) {
-  const secs = Math.max(0, Math.ceil(remainingMs / 1000));
+  const total = Math.max(0, Math.ceil(remainingMs / 1000));
   const urgent = remainingMs <= 10_000;
+  const mm = Math.floor(total / 60), ss = String(total % 60).padStart(2, "0");
   return (
-    <div className={`flex items-baseline gap-1 ${urgent ? "text-red-500" : "text-[#e7e9ea]"}`} role="timer" aria-label={`${secs} seconds left`} data-testid="timer">
-      <span className={`font-anton text-4xl leading-none tabular-nums sm:text-6xl ${urgent ? "pulse-red inline-block" : ""}`}>{secs}</span>
-      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-zinc-500 sm:text-xs">sec</span>
+    <div className="text-right" role="timer" aria-label={`${total} seconds left`} data-testid="timer">
+      <b className={`serif block text-[34px] font-normal leading-[.9] tabular-nums sm:text-[44px] ${urgent ? "pulse-red text-red-600" : ""}`}>{mm}:{ss}</b>
+      <small className="text-[12.5px] text-ink-soft">left</small>
     </div>
   );
 }
@@ -13,11 +14,8 @@ export function TimerBar({ remainingMs, totalMs }: { remainingMs: number; totalM
   const pct = Math.max(0, Math.min(1, remainingMs / totalMs));
   const urgent = remainingMs <= 10_000;
   return (
-    <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10" aria-hidden>
-      <div
-        className={`h-full origin-left rounded-full transition-[background-color] ${urgent ? "bg-red-500" : "bg-lime-400"}`}
-        style={{ transform: `scaleX(${pct})` }}
-      />
+    <div className="h-[5px] w-full overflow-hidden rounded-full bg-ink/[.08]" aria-hidden>
+      <div className={`h-full origin-left rounded-full ${urgent ? "bg-red-500" : "bg-lime-400"}`} style={{ transform: `scaleX(${pct})` }} />
     </div>
   );
 }
